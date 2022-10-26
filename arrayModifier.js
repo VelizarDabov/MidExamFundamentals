@@ -1,66 +1,49 @@
-function arrayCommands(array){
-    let index = 0
-    let numbers = String(array[0]).split(' ')
-    let arrayOfCommands = []
-    let command = ''
-    let sumForMultiplier = 0
-    let decreasedArray = []
- 
-    index++
-  while(command != 'end'){
-    
-    command = array[index].split(' ')
-    arrayOfCommands.push(array[index])
-    let firstCommand = command[0]
- 
-      if(firstCommand === 'swap'){
-        if(index > numbers.length){
+function arraymodify(input){
+let array = input.shift().split(' ').map(Number);
+let commands = input.shift();
+while(commands !== 'end'){
+let currComand = commands.split(' ')
+let index1 = currComand[1];
+let index2 = currComand[2];
+
+switch (currComand[0]) {   
+    case 'swap':
+        let el1 = array[index1]
+        let el2 = array[index2];
+
+       array[index1] = el2;
+       array[index2] = el1;
+        break;
+        case 'multiply':
+            let element1 = array[index1]
+            let element2 = array[index2];
+        let result = element1 * element2;
+        array[index1] = result
             break;
-         }else{
-        let temp = numbers[command[1]]
-        numbers[command[1]] = numbers[command[2]]
-        numbers[command[2]] = temp
-         }
-      }else if(firstCommand === 'multiply'){
-        sumForMultiplier = Number(numbers[command[1]]) * Number(numbers[command[2]])
-        numbers[command[1]] = sumForMultiplier
- 
-      }else if(firstCommand === 'decrease'){
-
-        for(let i = 0;i < numbers.length;i++){
-          decreasedArray.push(numbers[i] - 1)
- 
+            case 'decrease':
+        for(let i = 0; i < array.length; i++){
+            array[i] -= 1;
         }
-      }
-
-    index++
- 
-  }
-  if(decreasedArray === undefined || decreasedArray.length == 0) {
-    console.log(numbers.join(', '))
-  }else{
-    console.log(decreasedArray.join(', '));
-  }
- 
+        break;   
 }
-arrayCommands( [ 
+ commands = input.shift();
+}
+console.log(array.join(', '));
+}
+arraymodify([ 
 
-    '23 -2 321 87 42 90 -123', 
+    '1 2 3 4', 
   
-    'swap 1 88', 
+    'swap 0 1', 
   
-    'swap 3 6', 
+    'swap 1 2', 
   
-    'swap 1 0', 
+    'swap 2 3', 
   
     'multiply 1 2', 
-  
-    'multiply 2 1', 
   
     'decrease', 
   
     'end' 
   
-  ] 
-
-)
+  ]  )
